@@ -25,19 +25,10 @@ public class CommodityService {
         ProductExample example=new ProductExample();
         ProductExample.Criteria criteria=example.createCriteria();
         //todo 根据页码修改
-        criteria.andCateidBetween(0,10);
+
         List<Products> result = new ArrayList<>();
         List<Product> productList = productMapper.selectByExample(example);
-        for (Product product:productList){
-            Products products=new Products();
-            products.setProduct(product);
-            ProductSpecificationExample specExample=new ProductSpecificationExample();
-            ProductSpecificationExample.Criteria specCriteria = specExample.createCriteria();
-            specCriteria.andProidEqualTo(product.getProid());
-            List<ProductSpecification> productSpecifications = productSpecificationMapper.selectByExample(specExample);
-            products.setOtherSpecifications(productSpecifications);
-            result.add(products);
-        }
+
         return result;
     }
 }

@@ -9,6 +9,6 @@ public class BackHomeController {
 
     @RequestMapping
     public String homepage(){
-        return "backend/list1";
+        return "backend/medicineList";
     }
 }
