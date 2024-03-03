@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Login & Registration Form</title>
+    <script src="../static/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function tt(){
+            axios({
+                method: 'POST',
+                url: 'http://localhost:8080/test/t1',
+                data: this.loginForm
+            }).then(res => {
+                console.log(res.data)
+                alert(res.data)
+            })
+        }
+    </script>
+</head>
+<body>
+<input type="text"></input>
+<button onclick="tt()"></button>
+</body>

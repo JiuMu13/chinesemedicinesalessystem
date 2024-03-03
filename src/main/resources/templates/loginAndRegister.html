@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Login & Registration Form</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/LoginStyle.css">
+    <script src="/static/js/vue.js"></script>
+    <!--    <script src="../static/js/axios.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <div class="container" >
+        <span></span>
+        <span></span>
+        <span></span>
+        <form id="signinForm" v-on:submit="Submit(this)">
+            <h2>登录</h2>
+            <div class="inputBox">
+                <input type="text" placeholder="手机号" v-model="loginForm.phone">
+            </div>
+            <div class="inputBox">
+                <input type="password" placeholder="密码" v-model="loginForm.password">
+            </div>
+            <div class="inputBox group">
+                <a href="#">忘记密码</a>
+                <a href="#" id="signup" @click="toggleSignup">注册</a>
+            </div>
+            <div class="inputBox">
+                <input type="button" value="登录" @click="login">
+            </div>
+            <p v-if="errorMessage">{{ errorMessage }}</p>
+        </form>
+
+        <form id="signupForm">
+            <h2>注册</h2>
+            <div class="inputBox">
+                <input type="text" placeholder="手机号" v-model="signupForm.phone">
+            </div>
+            <div class="inputBox">
+                <input type="text" placeholder="验证码" v-model="signupForm.code">
+                <button>获取验证码</button>
+            </div>
+            <div class="inputBox">
+                <input type="password" placeholder="设置密码" v-model="signupForm.password">
+            </div>
+            <div class="inputBox">
+                <input type="password" placeholder="确认密码" v-model="signupForm.confirmPassword">
+            </div>
+            <div class="inputBox">
+                <input type="submit" value="注册" @click="signup">
+            </div>
+            <div class="inputBox group">
+                <a href="#">已经拥有账户 ? <b id="signin" @click="toggleSignup">登录</b></a>
+            </div>
+            <p v-if="errorMessage">{{ errorMessage }}</p>
+        </form>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            isSignup: false,
+            loginForm: {
+                phone: '',
+                password: ''
+            },
+            signupForm: {
+                phone: '',
+                code: '',
+                password: '',
+                confirmPassword: ''
+            },
+            errorMessage: ''
+        },
+        methods: {
+            toggleSignup: function () {
+                document.body.classList.toggle("signup");
+            },
+            Submit(e){
+                e.preventDefault();
+            },
+            login: function () {
+                alert("方法")
+                axios({
+                    method: 'POST',
+                    url: 'http://localhost:8080/loginpart/login',
+                    data: this.loginForm
+                }).then(response => {
+                    alert("then")
+                    if (response.data.status==='success'){
+                        window.location.href="http://localhost:8080/home/main"
+                    }else {
+                        this.errorMessage ="登录失败"
+                    }
+                }).catch(error => {
+                    alert("error")
+                })
+            },
+            signup: function () {
+                axios.post('/signup', this.signupForm)
+                    .then(response => {
+                        // 注册成功的处理逻辑
+                        console.log(response.data);
+                    })
+                    .catch(error => {
+                        // 注册失败的处理逻辑
+                        this.errorMessage = '注册失败，请检查输入信息';
+                    });
+            }
+        }
+    });
+</script>
+</body>
+</html>

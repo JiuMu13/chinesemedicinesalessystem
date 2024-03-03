@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.chinesemedicinesalessystem.Imapper.OrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.example.chinesemedicinesalessystem.entity.OrderDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="proid" property="proid" jdbcType="BIGINT" />
+    <result column="prodetailid" property="prodetailid" jdbcType="BIGINT" />
+    <result column="currprice" property="currprice" jdbcType="DECIMAL" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="totalprice" property="totalprice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, orderid, proid, prodetailid, currprice, quantity, totalprice
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.chinesemedicinesalessystem.entity.OrderDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.chinesemedicinesalessystem.entity.OrderDetailExample" >
+    delete from order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.chinesemedicinesalessystem.entity.OrderDetail" >
+    insert into order_detail (id, orderid, proid, 
+      prodetailid, currprice, quantity, 
+      totalprice)
+    values (#{id,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{proid,jdbcType=BIGINT}, 
+      #{prodetailid,jdbcType=BIGINT}, #{currprice,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, 
+      #{totalprice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.chinesemedicinesalessystem.entity.OrderDetail" >
+    insert into order_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="proid != null" >
+        proid,
+      </if>
+      <if test="prodetailid != null" >
+        prodetailid,
+      </if>
+      <if test="currprice != null" >
+        currprice,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="totalprice != null" >
+        totalprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="proid != null" >
+        #{proid,jdbcType=BIGINT},
+      </if>
+      <if test="prodetailid != null" >
+        #{prodetailid,jdbcType=BIGINT},
+      </if>
+      <if test="currprice != null" >
+        #{currprice,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null" >
+        #{totalprice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.chinesemedicinesalessystem.entity.OrderDetailExample" resultType="java.lang.Integer" >
+    select count(*) from order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_detail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proid != null" >
+        proid = #{record.proid,jdbcType=BIGINT},
+      </if>
+      <if test="record.prodetailid != null" >
+        prodetailid = #{record.prodetailid,jdbcType=BIGINT},
+      </if>
+      <if test="record.currprice != null" >
+        currprice = #{record.currprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.quantity != null" >
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalprice != null" >
+        totalprice = #{record.totalprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_detail
+    set id = #{record.id,jdbcType=VARCHAR},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      proid = #{record.proid,jdbcType=BIGINT},
+      prodetailid = #{record.prodetailid,jdbcType=BIGINT},
+      currprice = #{record.currprice,jdbcType=DECIMAL},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      totalprice = #{record.totalprice,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.chinesemedicinesalessystem.entity.OrderDetail" >
+    update order_detail
+    <set >
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="proid != null" >
+        proid = #{proid,jdbcType=BIGINT},
+      </if>
+      <if test="prodetailid != null" >
+        prodetailid = #{prodetailid,jdbcType=BIGINT},
+      </if>
+      <if test="currprice != null" >
+        currprice = #{currprice,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null" >
+        totalprice = #{totalprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.chinesemedicinesalessystem.entity.OrderDetail" >
+    update order_detail
+    set orderid = #{orderid,jdbcType=VARCHAR},
+      proid = #{proid,jdbcType=BIGINT},
+      prodetailid = #{prodetailid,jdbcType=BIGINT},
+      currprice = #{currprice,jdbcType=DECIMAL},
+      quantity = #{quantity,jdbcType=INTEGER},
+      totalprice = #{totalprice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

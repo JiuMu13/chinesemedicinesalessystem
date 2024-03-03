@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.chinesemedicinesalessystem.Imapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.example.chinesemedicinesalessystem.entity.Product" >
+    <id column="proid" property="proid" jdbcType="BIGINT" />
+    <result column="cateid" property="cateid" jdbcType="INTEGER" />
+    <result column="shopid" property="shopid" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="specification" property="specification" jdbcType="VARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="mainimage" property="mainimage" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="saleprice" property="saleprice" jdbcType="DECIMAL" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+    <result column="monthsales" property="monthsales" jdbcType="INTEGER" />
+    <result column="commentgrade" property="commentgrade" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    proid, cateid, shopid, name, specification, detail, mainimage, price, saleprice, 
+    stock, status, sales, monthsales, commentgrade
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.chinesemedicinesalessystem.entity.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where proid = #{proid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product
+    where proid = #{proid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.chinesemedicinesalessystem.entity.ProductExample" >
+    delete from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.chinesemedicinesalessystem.entity.Product" >
+    insert into product (proid, cateid, shopid, 
+      name, specification, detail, 
+      mainimage, price, saleprice, 
+      stock, status, sales, 
+      monthsales, commentgrade)
+    values (#{proid,jdbcType=BIGINT}, #{cateid,jdbcType=INTEGER}, #{shopid,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
+      #{mainimage,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{saleprice,jdbcType=DECIMAL}, 
+      #{stock,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{sales,jdbcType=INTEGER}, 
+      #{monthsales,jdbcType=INTEGER}, #{commentgrade,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.chinesemedicinesalessystem.entity.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proid != null" >
+        proid,
+      </if>
+      <if test="cateid != null" >
+        cateid,
+      </if>
+      <if test="shopid != null" >
+        shopid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="mainimage != null" >
+        mainimage,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="saleprice != null" >
+        saleprice,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sales != null" >
+        sales,
+      </if>
+      <if test="monthsales != null" >
+        monthsales,
+      </if>
+      <if test="commentgrade != null" >
+        commentgrade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proid != null" >
+        #{proid,jdbcType=BIGINT},
+      </if>
+      <if test="cateid != null" >
+        #{cateid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null" >
+        #{shopid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="mainimage != null" >
+        #{mainimage,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="saleprice != null" >
+        #{saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sales != null" >
+        #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="monthsales != null" >
+        #{monthsales,jdbcType=INTEGER},
+      </if>
+      <if test="commentgrade != null" >
+        #{commentgrade,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.chinesemedicinesalessystem.entity.ProductExample" resultType="java.lang.Integer" >
+    select count(*) from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product
+    <set >
+      <if test="record.proid != null" >
+        proid = #{record.proid,jdbcType=BIGINT},
+      </if>
+      <if test="record.cateid != null" >
+        cateid = #{record.cateid,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopid != null" >
+        shopid = #{record.shopid,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specification != null" >
+        specification = #{record.specification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detail != null" >
+        detail = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainimage != null" >
+        mainimage = #{record.mainimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleprice != null" >
+        saleprice = #{record.saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stock != null" >
+        stock = #{record.stock,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.sales != null" >
+        sales = #{record.sales,jdbcType=INTEGER},
+      </if>
+      <if test="record.monthsales != null" >
+        monthsales = #{record.monthsales,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentgrade != null" >
+        commentgrade = #{record.commentgrade,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product
+    set proid = #{record.proid,jdbcType=BIGINT},
+      cateid = #{record.cateid,jdbcType=INTEGER},
+      shopid = #{record.shopid,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      specification = #{record.specification,jdbcType=VARCHAR},
+      detail = #{record.detail,jdbcType=VARCHAR},
+      mainimage = #{record.mainimage,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      saleprice = #{record.saleprice,jdbcType=DECIMAL},
+      stock = #{record.stock,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      sales = #{record.sales,jdbcType=INTEGER},
+      monthsales = #{record.monthsales,jdbcType=INTEGER},
+      commentgrade = #{record.commentgrade,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.chinesemedicinesalessystem.entity.Product" >
+    update product
+    <set >
+      <if test="cateid != null" >
+        cateid = #{cateid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null" >
+        shopid = #{shopid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="mainimage != null" >
+        mainimage = #{mainimage,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="saleprice != null" >
+        saleprice = #{saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sales != null" >
+        sales = #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="monthsales != null" >
+        monthsales = #{monthsales,jdbcType=INTEGER},
+      </if>
+      <if test="commentgrade != null" >
+        commentgrade = #{commentgrade,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where proid = #{proid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.chinesemedicinesalessystem.entity.Product" >
+    update product
+    set cateid = #{cateid,jdbcType=INTEGER},
+      shopid = #{shopid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      specification = #{specification,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      mainimage = #{mainimage,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      saleprice = #{saleprice,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      sales = #{sales,jdbcType=INTEGER},
+      monthsales = #{monthsales,jdbcType=INTEGER},
+      commentgrade = #{commentgrade,jdbcType=DECIMAL}
+    where proid = #{proid,jdbcType=BIGINT}
+  </update>
+</mapper>
